@@ -1,0 +1,60 @@
+{
+  "name": "@axa-ch/react-polymorphic-types",
+  "version": "0.0.0",
+  "description": "About Zero-runtime polymorphic component definitions for React",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "type": "module",
+  "exports": {
+    "import": "./index.js",
+    "types": "./index.d.ts"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
+  "scripts": {
+    "lint": "prettier --check . && eslint . --ext .ts,.tsx",
+    "test": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axa-ch/react-polymorphic-types.git"
+  },
+  "keywords": [
+    "react",
+    "polymorphic",
+    "as",
+    "typescript"
+  ],
+  "author": "AXA (https://axa.ch)",
+  "maintainers": [
+    {
+      "name": "Gianluca Guarini",
+      "email": "gianluca.guarini@axa.ch"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/axa-ch/react-polymorphic-types/issues"
+  },
+  "homepage": "https://github.com/axa-ch/react-polymorphic-types#readme",
+  "devDependencies": {
+    "@axa-ch/easy-config": "^0.2.4",
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
+    "eslint": "^8.41.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.8.8",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@types/react": "^18.2.7",
+    "react": "^18.2.0"
+  }
+}

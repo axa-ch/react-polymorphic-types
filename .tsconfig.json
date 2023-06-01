@@ -1,0 +1,3 @@
+{
+  "extends": "@axa-ch/easy-config/ts-config/base"
+}
