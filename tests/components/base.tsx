@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, createElement, ElementType } from 'react';
-import { PolymorphicPropsWithoutRef } from '../../index';
+import { PolymorphicProps } from '../../index';
 
 // Default HTML element if the "as" prop is not provided
 export const HeadingDefaultElement: ElementType = 'h1';
@@ -14,7 +14,7 @@ export type HeadingOwnProps<T extends HeadingAllowedElements> = ComponentPropsWi
 
 // Extend own props with others inherited from the underlying element type
 // Own props take precedence over the inherited ones
-export type HeadingProps<T extends HeadingAllowedElements = typeof HeadingDefaultElement> = PolymorphicPropsWithoutRef<
+export type HeadingProps<T extends HeadingAllowedElements = typeof HeadingDefaultElement> = PolymorphicProps<
   HeadingOwnProps<T>,
   T,
   HeadingAllowedElements

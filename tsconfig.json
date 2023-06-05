@@ -1,3 +1,6 @@
 {
-  "extends": "@axa-ch/easy-config/ts-config/base"
+  "extends": "@axa-ch/easy-config/ts-config/base",
+  "compilerOptions": {
+    "lib": ["dom", "esnext"]
+  }
 }

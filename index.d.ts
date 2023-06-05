@@ -1,15 +1,6 @@
 // Forked from https://github.com/kripod/react-polymorphic-types/blob/604f8346a821bb6c13268d298762905823c8fba2/index.d.ts
 
-import {
-  ComponentPropsWithoutRef,
-  ComponentPropsWithRef,
-  ElementType,
-  PropsWithoutRef,
-  PropsWithRef,
-  JSX,
-  ExoticComponent,
-  ForwardRefExoticComponent,
-} from 'react';
+import { ComponentPropsWithoutRef, ElementType, PropsWithoutRef, JSX, ExoticComponent } from 'react';
 
 type Merge<T, U> = Omit<T, keyof U> & U;
 
@@ -21,7 +12,7 @@ export type PropsWithAs<
   as?: T extends keyof JSX.IntrinsicElements ? (T extends S ? T : never) : T;
 };
 
-export type PolymorphicPropsWithoutRef<
+export type PolymorphicProps<
   P,
   T extends ElementType,
   S extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements,
@@ -30,23 +21,8 @@ export type PolymorphicPropsWithoutRef<
   PropsWithAs<P, T, S>
 >;
 
-export type PolymorphicPropsWithRef<
+type PolymorphicExoticProps<
   P,
   T extends ElementType,
   S extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements,
-> = Merge<
-  T extends keyof JSX.IntrinsicElements ? PropsWithRef<JSX.IntrinsicElements[T]> : ComponentPropsWithRef<T>,
-  PropsWithAs<P, T, S>
->;
-
-type PolymorphicExoticComponent<
-  P,
-  T extends ElementType,
-  S extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements,
-> = T extends ExoticComponent<infer U> ? PolymorphicPropsWithoutRef<Merge<P, U>, T, S> : never;
-
-export type PolymorphicForwardRefExoticComponent<
-  P,
-  T extends ElementType,
-  S extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements,
-> = Merge<ForwardRefExoticComponent<P>, PolymorphicExoticComponent<P, T, S>>;
+> = T extends ExoticComponent<infer U> ? PolymorphicProps<Merge<P, U>, T, S> : never;
