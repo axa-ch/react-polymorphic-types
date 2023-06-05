@@ -1,29 +1,35 @@
 import { ComponentPropsWithoutRef, createElement, ElementType, ExoticComponent } from 'react';
-import { Merge, PolymorphicPropsWithoutRef } from '../../index';
+import { PolymorphicExoticComponent, PolymorphicPropsWithoutRef } from '../../index';
 
 // Default HTML element if the "as" prop is not provided
-export const DefaultElement: ElementType = 'div';
-
+export const ContainerDefaultElement: ElementType = 'div';
 // List of allowed HTML Element that can be passed via "as" prop
-export type ContainerAllowedDomNodes = 'div' | 'article' | 'section';
-// List of allowed React nodes that can be passed along with the "as" prop
-export type ContainerAllowedComponentTypes = ElementType | ExoticComponent;
-// Make sure that the basic html attributes will always be received by this component,
-// even if an exotic component will be used for the "as" attribute
-export type ContainerOwnProps<T extends ContainerAllowedComponentTypes> = T extends ExoticComponent<infer U>
-  ? // Exotic components props should be inferred and merged with the ones available on the allowed DOM nodes
-    Merge<ComponentPropsWithoutRef<ContainerAllowedDomNodes>, U>
-  : ComponentPropsWithoutRef<T>;
+export type ContainerAllowedDOMElements = 'div' | 'article' | 'section';
+export type ContainerAllowedElements = ContainerAllowedDOMElements | ExoticComponent;
 
-export type ContainerProps<T extends ContainerAllowedComponentTypes> = PolymorphicPropsWithoutRef<
-  ContainerOwnProps<T>,
-  T,
-  ContainerAllowedDomNodes
->;
+// Component-specific props
+export type ContainerOwnProps<T extends ContainerAllowedDOMElements> = ComponentPropsWithoutRef<T>;
 
-export const Container = <T extends ContainerAllowedComponentTypes>({
+// Extend own props with others inherited from the underlying element type
+// Own props take precedence over the inherited ones
+export type ContainerProps<T extends ContainerAllowedElements> = T extends ContainerAllowedDOMElements
+  ? PolymorphicPropsWithoutRef<ContainerOwnProps<T>, T, ContainerAllowedDOMElements>
+  : PolymorphicExoticComponent<ContainerOwnProps<ContainerAllowedDOMElements>, T, ContainerAllowedDOMElements>;
+
+export const Container = <T extends ContainerAllowedElements>({
   as,
-  children,
   className,
+  children,
   ...rest
-}: ContainerProps<T>) => createElement(as || DefaultElement, { ...rest, className }, children);
+}: ContainerProps<T>) => {
+  const element: ContainerAllowedElements = as || ContainerDefaultElement;
+
+  return createElement(
+    element,
+    {
+      ...rest,
+      className,
+    },
+    children,
+  );
+};
