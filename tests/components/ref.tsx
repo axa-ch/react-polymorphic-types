@@ -1,5 +1,5 @@
-import { ComponentPropsWithoutRef, createElement, ElementType, ForwardedRef, forwardRef } from 'react';
-import { PolymorphicProps } from '../../index';
+import { ComponentPropsWithoutRef, createElement, ElementType, forwardRef } from 'react';
+import { PolymorphicProps, PolymorphicForwardedRef } from '../../index';
 
 // Default HTML element if the "as" prop is not provided
 export const HeadingDefaultElement: ElementType = 'h1';
@@ -15,7 +15,7 @@ export type HeadingOwnProps<T extends HeadingAllowedElements> = ComponentPropsWi
 export const Heading = forwardRef(
   <T extends HeadingAllowedElements>(
     { as, size, className, children, ...rest }: PolymorphicProps<HeadingOwnProps<T>, T, HeadingAllowedElements>,
-    ref: ForwardedRef<HTMLElementTagNameMap[T]>,
+    ref: PolymorphicForwardedRef<T>,
   ) => {
     const element: HeadingAllowedElements = as || HeadingDefaultElement;
 
