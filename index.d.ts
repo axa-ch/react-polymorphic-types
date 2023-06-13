@@ -1,5 +1,3 @@
-// Forked from https://github.com/kripod/react-polymorphic-types/blob/604f8346a821bb6c13268d298762905823c8fba2/index.d.ts
-
 import {
   ComponentPropsWithoutRef,
   ElementType,
@@ -7,10 +5,13 @@ import {
   JSX,
   ExoticComponent,
   ComponentPropsWithRef,
+  FC,
 } from 'react';
 
+// Utility type to merge two types
 type Merge<T, U> = Omit<T, keyof U> & U;
 
+// Props type with an "as" prop that allows specifying the element type
 export type PropsWithAs<
   P,
   T extends ElementType,
@@ -19,6 +20,7 @@ export type PropsWithAs<
   as?: T extends keyof JSX.IntrinsicElements ? (T extends S ? T : never) : T;
 };
 
+// Polymorphic props type that merges the component-specific props with the "as" prop
 export type PolymorphicProps<
   P,
   T extends ElementType,
@@ -28,10 +30,19 @@ export type PolymorphicProps<
   PropsWithAs<P, T, S>
 >;
 
+// Polymorphic props type for exotic components
 type PolymorphicExoticProps<
   P,
   T extends ElementType,
   S extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements,
-> = T extends ExoticComponent<infer U> ? PolymorphicProps<Merge<P, U>, T, S> : never;
+> = T extends ExoticComponent<infer U> ? PolymorphicProps<Merge<P, PropsWithoutRef<U>>, T, S> : never;
 
+// Polymorphic props type for functional components
+type PolymorphicFunctionalProps<
+  P,
+  T extends ElementType,
+  S extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements,
+> = T extends FC<infer U> ? PolymorphicProps<Merge<P, PropsWithoutRef<U>>, T, S> : never;
+
+// Type for the forwarded ref of a component
 export type PolymorphicForwardedRef<C extends ElementType> = ComponentPropsWithRef<C>['ref'];

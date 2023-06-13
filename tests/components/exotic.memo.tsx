@@ -1,5 +1,5 @@
-import { ComponentPropsWithoutRef, createElement, ElementType, ExoticComponent, forwardRef } from 'react';
-import { PolymorphicExoticProps, PolymorphicForwardedRef, PolymorphicProps } from '../../index';
+import { ComponentPropsWithoutRef, createElement, ElementType, ExoticComponent, memo } from 'react';
+import { PolymorphicExoticProps, PolymorphicProps } from '../../index';
 
 // Default HTML element if the "as" prop is not provided
 export const ContainerDefaultElement: ElementType = 'div';
@@ -16,27 +16,27 @@ export type ContainerProps<T extends ContainerAllowedElements> = T extends Conta
   ? PolymorphicProps<ContainerOwnProps<T>, T, ContainerAllowedDOMElements>
   : PolymorphicExoticProps<ContainerOwnProps<ContainerAllowedDOMElements>, T, ContainerAllowedDOMElements>;
 
-// Forwarded ref component
-const ContainerInner = <T extends ContainerAllowedElements>(
-  { as, className, children, ...rest }: ContainerProps<T>,
-  ref: PolymorphicForwardedRef<T>,
-) => {
+export const ContainerInner = <T extends ContainerAllowedElements>({
+  as,
+  className,
+  children,
+  ...rest
+}: ContainerProps<T>) => {
   const element: ContainerAllowedElements = as || ContainerDefaultElement;
 
   return createElement(
     element,
     {
       ...rest,
-      ref,
       className,
     },
     children,
   );
 };
 
-// Forward refs with generics is tricky
+// Memo with generics is tricky
 // see also https://fettblog.eu/typescript-react-generic-forward-refs/
-export const Container = forwardRef<ContainerAllowedElements>(ContainerInner) as <T extends ContainerAllowedElements>(
+export const Container = memo(ContainerInner) as <T extends ContainerAllowedElements>(
   // eslint-disable-next-line no-use-before-define
-  props: ContainerProps<T> & { ref?: PolymorphicForwardedRef<T> },
+  props: ContainerProps<T>,
 ) => ReturnType<typeof ContainerInner>;
