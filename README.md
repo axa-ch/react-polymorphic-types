@@ -5,14 +5,15 @@
 [![NPM version][npm-version-image]][npm-url]
 [![NPM downloads][npm-downloads-image]][npm-url]
 
-About Zero-runtime polymorphic component definitions for React
+## About
+
+**react-polymorphic-types** is a library that enables the creation of zero-runtime polymorphic component definitions in React.
 
 ## Explanation
 
-### What's a React.js polymorphic component?
+### What is a React polymorphic component?
 
-When creating design systems or reusable UI components in React, you may come across the need for **polymorphic components**.
-A polymorphic component is a versatile component that can render different underlying HTML elements or custom components based on a prop.
+When building design systems or reusable UI components in React, you may come across the need for **polymorphic components**. A polymorphic component is a versatile component that can render different underlying HTML elements or custom components based on a prop.
 
 A React polymorphic component provides flexibility to the consumer, allowing them to specify the desired element or component type to be rendered using a prop.
 
@@ -52,17 +53,15 @@ In this case, the same `Heading` component is used to render two different seman
 
 Polymorphic components provide an elegant solution for building flexible and reusable UI components in React, enabling you to create a cohesive design system with consistent semantics.
 
-### What kind of problems does this package solve?
+### What problems does this package solve?
 
-The use of the `as` attribute might became really complex in case you want to add constraints to your rendered markup or use 3rd party components.
-Declaring the polymorphic types for each component might become a tedious task that you want to abstract somehow.
-With `@axa-ch/react-polymorphic-types` you will be able to easily add constraints to your polymorphic react components and avoid redundant type definitions.
+The use of the `as` attribute can become complex when adding constraints to your rendered markup or when using third-party components. Declaring polymorphic types for each component can also be a tedious task that you may want to abstract.
 
-Below we provide many recipes to cover many use cases you will probably encounter during your development
+With `@axa-ch/react-polymorphic-types`, you can easily add constraints to your polymorphic React components and avoid redundant type definitions.
 
 ## Installation and Usage
 
-Install this typescript types via npm:
+Install the TypeScript types via npm:
 
 ```shell
 npm i @axa-ch/react-polymorphic-types -D
@@ -70,12 +69,12 @@ npm i @axa-ch/react-polymorphic-types -D
 
 ### Polymorphic Components Recipes
 
-The following recipes can be copied and modified to give you a bootstrap for your polymorphic components
+The following recipes provide a starting point for creating polymorphic components. You can copy and modify them according to your requirements.
 
 <details>
- <summary>Basic Example</summary>
+  <summary>Basic Example</summary>
 
-This component is a simple polymorphic heading element. Its size and markup can be independently defined using its props
+This example showcases a simple polymorphic heading element. It allows you to independently define its size and markup using props.
 
 ```tsx
 import { ComponentPropsWithoutRef, createElement, ElementType } from 'react';
@@ -83,7 +82,7 @@ import { PolymorphicProps } from '@axa-ch/react-polymorphic-types';
 
 // Default HTML element if the "as" prop is not provided
 export const HeadingDefaultElement: ElementType = 'h1';
-// List of allowed HTML Element that can be passed via "as" prop
+// List of allowed HTML elements that can be passed via the "as" prop
 export type HeadingAllowedElements = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 export type HeadingSizes = 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -120,7 +119,7 @@ export const Heading = <T extends HeadingAllowedElements>({
 };
 ```
 
-You can use the `Heading` component in your application like this:
+You can use the `Heading` component in your application as shown below:
 
 ```tsx
 const App = () => (
@@ -138,7 +137,7 @@ const App = () => (
       A Subtitle
     </Heading>
 
-    {/* The following component will throw a typescript error because 'div's are not allowed here */}
+    {/* The following component will throw a TypeScript error because 'div' elements are not allowed here */}
     <Heading
       as='div'
       size={5}
@@ -155,7 +154,7 @@ const App = () => (
 <details>
  <summary>Basic Example with Ref</summary>
 
-This example is similar to the above but it allows the use of React refs:
+This example is similar to the previous one, but it also allows the use of React refs.
 
 ```tsx
 import { ComponentPropsWithoutRef, createElement, ElementType, forwardRef } from 'react';
@@ -163,7 +162,7 @@ import { PolymorphicProps, PolymorphicForwardedRef } from '@axa-ch/react-polymor
 
 // Default HTML element if the "as" prop is not provided
 export const HeadingDefaultElement: ElementType = 'h1';
-// List of allowed HTML Element that can be passed via "as" prop
+// List of allowed HTML elements that can be passed via the "as" prop
 export type HeadingAllowedElements = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 export type HeadingSizes = 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -193,11 +192,11 @@ export const Heading = forwardRef(
 );
 ```
 
-Using the `@axa-ch/react-polymorphic-types` types will allow you automatically to infer the proper ref DOM node
+Using the `@axa-ch/react-polymorphic-types` types will allow you to automatically infer the proper ref DOM node.
 
 ```tsx
 const App = () => {
-  // the use of HTMLHeadingElement type safe
+  // The use of HTMLHeadingElement type is safe
   const ref = useRef<HTMLHeadingElement | null>(null);
 
   return (
@@ -212,9 +211,9 @@ const App = () => {
 </details>
 
 <details>
- <summary>Exotic Component Example</summary>
+<summary>Exotic Component Example</summary>
 
-Polymorphic exotic components allow you to use either DOM nodes or custom rendering functions for your HTML
+Polymorphic exotic components allow you to use either DOM nodes or custom rendering functions for your HTML.
 
 ```tsx
 import { ComponentPropsWithoutRef, createElement, ElementType, ExoticComponent } from 'react';
@@ -222,7 +221,7 @@ import { PolymorphicExoticProps, PolymorphicProps } from '@axa-ch/react-polymorp
 
 // Default HTML element if the "as" prop is not provided
 export const ContainerDefaultElement: ElementType = 'div';
-// List of allowed HTML Element that can be passed via "as" prop
+// List of allowed HTML elements that can be passed via the "as" prop
 export type ContainerAllowedDOMElements = 'div' | 'article' | 'section';
 export type ContainerAllowedElements = ContainerAllowedDOMElements | ExoticComponent;
 
@@ -254,14 +253,15 @@ export const Container = <T extends ContainerAllowedElements>({
 };
 ```
 
-The above component will work with straight html nodes or with external exotic components like for example the ones provided by [framer-motion](https://www.framer.com/motion/)
+The above component works with straight HTML nodes or with external exotic components like, for example, the ones provided by [framer-motion](https://www.framer.com/motion/).
 
 ```tsx
 import { motion } from 'framer-motion';
+
 const App = () => (
   <>
-    <Container as={'div'} />
-    {/* notice that the exotic props here will be automatically inferred */}
+    <Container as='div' />
+    {/* Notice that the exotic props here will be automatically inferred */}
     <Container
       as={motion.article}
       layout
@@ -273,9 +273,9 @@ const App = () => (
 </details>
 
 <details>
- <summary>Exotic Component Example with Ref</summary>
+<summary>Exotic Component Example with Ref</summary>
 
-Polymorphic exotic component using refs are a bit more complex and require some additional code to work properly:
+Polymorphic exotic components that use refs are slightly more complex and require some additional code to work properly.
 
 ```tsx
 import { ComponentPropsWithoutRef, createElement, ElementType, ExoticComponent, memo } from 'react';
@@ -283,7 +283,7 @@ import { PolymorphicProps, PolymorphicForwardedRef } from '@axa-ch/react-polymor
 
 // Default HTML element if the "as" prop is not provided
 export const ContainerDefaultElement: ElementType = 'div';
-// List of allowed HTML Element that can be passed via "as" prop
+// List of allowed HTML elements that can be passed via the "as" prop
 export type ContainerAllowedDOMElements = 'div' | 'article' | 'section';
 export type ContainerAllowedElements = ContainerAllowedDOMElements | ExoticComponent;
 
@@ -315,37 +315,28 @@ export const ContainerInner = <T extends ContainerAllowedElements>({
 };
 
 // Memo with generics is tricky
-// see also https://fettblog.eu/typescript-react-generic-forward-refs/
+// See also https://fettblog.eu/typescript-react-generic-forward-refs/
 export const Container = memo(ContainerInner) as <T extends ContainerAllowedElements>(
   // eslint-disable-next-line no-use-before-define
   props: ContainerProps<T>,
 ) => ReturnType<typeof ContainerInner>;
 ```
 
-With the above example DOM Nodes will be automatically inferred also using 3rd party exotic rendering functions:
+With the above example, DOM nodes will be automatically inferred, including when using third-party exotic rendering functions.
 
 ```tsx
 import { motion } from 'framer-motion';
-const App = () => (
-  <>
-    <Container as={'div'} />
-    {/* notice that the exotic props here will be automatically inferred */}
-    <Container
-      as={motion.article}
-      layout
-    />
-  </>
-);
+
 const App = () => {
   const div = useRef<HTMLDivElement | null>(null);
-  // article and other html5 tags are just of type HTMLElement
+  // Article and other HTML5 tags are just of type HTMLElement
   const article = useRef<HTMLElement | null>(null);
 
   return (
     <>
       <Container
         ref={div}
-        as={'div'}
+        as='div'
       />
       <Container
         ref={article}
@@ -360,20 +351,20 @@ const App = () => {
 </details>
 
 <details>
- <summary>Complex Exotic/Functional Component Example</summary>
+  <summary>Complex Exotic/Functional Component Example</summary>
 
-This example combines multiple rendering strategies for your component in order allow the maximum flexibility to its consumers:
+This example combines multiple rendering strategies for your component to allow maximum flexibility for its consumers.
 
 ```tsx
-// We need to infer the functional component properties so any in this case is needed
-// You can also add strict types for your functional components but it will reduce its flexibility
+// We need to infer the functional component properties so 'any' is used in this case
+// You can also add strict types for your functional components, but it will reduce flexibility
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ComponentPropsWithoutRef, createElement, ElementType, ExoticComponent, FC } from 'react';
-import { PolymorphicFunctionalProps, PolymorphicExoticProps, PolymorphicProps } from '../../index';
+import { PolymorphicFunctionalProps, PolymorphicExoticProps, PolymorphicProps } from '@axa-ch/react-polymorphic-types';
 
 // Default HTML element if the "as" prop is not provided
 export const ContainerDefaultElement: ElementType = 'div';
-// List of allowed HTML Element that can be passed via "as" prop
+// List of allowed HTML elements that can be passed via the "as" prop
 export type ContainerAllowedDOMElements = 'div' | 'article' | 'section';
 export type ContainerAllowedElements = ContainerAllowedDOMElements | ExoticComponent | FC<any>;
 
@@ -423,10 +414,10 @@ const Foo: FC<FooProps> = ({ className, size = 'large', ...rest }) => (
 
 const App = () => (
   <>
-    <Container as={'div'} />
+    <Container as='div' />
     <Container
-      size={'small'}
-      name={'foo'}
+      size='small'
+      name='foo'
       as={Foo}
     />
     <Container
