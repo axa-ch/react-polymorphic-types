@@ -433,7 +433,7 @@ const App = () => (
 
 ## Credits
 
-This project wouldn't exist without [https://github.com/kripod/react-polymorphic-types](react-polymorphic-types)
+This project wouldn't exist without [react-polymorphic-types](https://github.com/kripod/react-polymorphic-types)
 
 [ci-image]: https://img.shields.io/github/actions/workflow/status/axa-ch/react-polymorphic-types/ci.yml?style=flat-square&branch=main
 [ci-url]: https://github.com/axa-ch/react-polymorphic-types/actions
