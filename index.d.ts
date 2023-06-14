@@ -31,14 +31,14 @@ export type PolymorphicProps<
 >;
 
 // Polymorphic props type for exotic components
-type PolymorphicExoticProps<
+export type PolymorphicExoticProps<
   P,
   T extends ElementType,
   S extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements,
 > = T extends ExoticComponent<infer U> ? PolymorphicProps<Merge<P, PropsWithoutRef<U>>, T, S> : never;
 
 // Polymorphic props type for functional components
-type PolymorphicFunctionalProps<
+export type PolymorphicFunctionalProps<
   P,
   T extends ElementType,
   S extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements,
