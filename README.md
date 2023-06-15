@@ -163,7 +163,7 @@ import { PolymorphicProps, PolymorphicForwardedRef } from '@axa-ch/react-polymor
 // Default HTML element if the "as" prop is not provided
 export const HeadingDefaultElement: ElementType = 'h1';
 // List of allowed HTML elements that can be passed via the "as" prop
-export type HeadingAllowedElements = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'a';
+export type HeadingAllowedElements = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 export type HeadingSizes = 1 | 2 | 3 | 4 | 5 | 6;
 
 // Component-specific props
@@ -219,6 +219,72 @@ const App = () => {
     />
   );
 };
+```
+
+</details>
+
+<details>
+<summary>Basic Example with Memo</summary>
+
+This example shows the use of React.memo with a polymorphic component.
+
+```tsx
+import { ComponentPropsWithoutRef, createElement, ElementType, memo } from 'react';
+import { PolymorphicProps, PolymorphicForwardedRef } from '@axa-ch/react-polymorphic-types';
+
+// Default HTML element if the "as" prop is not provided
+export const HeadingDefaultElement: ElementType = 'h1';
+// List of allowed HTML elements that can be passed via the "as" prop
+export type HeadingAllowedElements = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+export type HeadingSizes = 1 | 2 | 3 | 4 | 5 | 6;
+
+// Component-specific props
+export type HeadingOwnProps<T extends HeadingAllowedElements> = ComponentPropsWithoutRef<T> & {
+  size?: HeadingSizes;
+};
+
+// Extend own props with others inherited from the underlying element type
+// Own props take precedence over the inherited ones
+export type HeadingProps<T extends HeadingAllowedElements> = PolymorphicProps<
+  HeadingOwnProps<T>,
+  T,
+  HeadingAllowedElements
+>;
+
+const HeadingInner = <T extends HeadingAllowedElements>({
+  as,
+  size,
+  className,
+  children,
+  ...rest
+}: PolymorphicProps<HeadingOwnProps<T>, T, HeadingAllowedElements>) => {
+  const element: HeadingAllowedElements = as || HeadingDefaultElement;
+
+  return createElement(
+    element,
+    {
+      ...rest,
+      className: `${className} size-${size || 1}`,
+    },
+    children,
+  );
+};
+
+// Memo with generics is tricky
+// see also https://fettblog.eu/typescript-react-generic-forward-refs/
+export const Heading = memo(HeadingInner) as <T extends HeadingAllowedElements>(
+  props: HeadingProps<T>,
+) => ReturnType<typeof HeadingInner>;
+```
+
+The above component can be consumed without any additional overhead as follows:
+
+```tsx
+const App = () => (
+  <>
+    <Heading as='h2' />
+  </>
+);
 ```
 
 </details>
