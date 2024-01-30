@@ -230,7 +230,7 @@ This example shows the use of React.memo with a polymorphic component.
 
 ```tsx
 import { ComponentPropsWithoutRef, createElement, ElementType, memo } from 'react';
-import { PolymorphicProps, PolymorphicForwardedRef } from '@axa-ch/react-polymorphic-types';
+import { PolymorphicProps } from '@axa-ch/react-polymorphic-types';
 
 // Default HTML element if the "as" prop is not provided
 export const HeadingDefaultElement: ElementType = 'h1';
@@ -358,7 +358,7 @@ Polymorphic exotic components that use refs are slightly more complex and requir
 
 ```tsx
 import { ComponentPropsWithoutRef, createElement, ElementType, ExoticComponent, forwardRef } from 'react';
-import { PolymorphicProps, PolymorphicForwardedRef } from '@axa-ch/react-polymorphic-types';
+import { PolymorphicProps, PolymorphicForwardedRef, PolymorphicExoticProps } from '@axa-ch/react-polymorphic-types';
 
 // Default HTML element if the "as" prop is not provided
 export const ContainerDefaultElement: ElementType = 'div';
