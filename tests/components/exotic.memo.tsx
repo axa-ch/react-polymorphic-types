@@ -4,7 +4,7 @@ import { PolymorphicExoticProps, PolymorphicProps } from '../../index';
 // Default HTML element if the "as" prop is not provided
 export const ContainerDefaultElement: ElementType = 'div';
 // List of allowed HTML Element that can be passed via "as" prop
-export type ContainerAllowedDOMElements = 'div' | 'article' | 'section';
+export type ContainerAllowedDOMElements = typeof ContainerDefaultElement | 'article' | 'section';
 export type ContainerAllowedElements = ContainerAllowedDOMElements | ExoticComponent;
 
 // Component-specific props
@@ -36,7 +36,9 @@ export const ContainerInner = <T extends ContainerAllowedElements>({
 
 // Memo with generics is tricky
 // see also https://fettblog.eu/typescript-react-generic-forward-refs/
-export const Container = memo(ContainerInner) as <T extends ContainerAllowedElements>(
+export const Container = memo<ContainerOwnProps<ContainerAllowedDOMElements>>(ContainerInner) as <
+  T extends ContainerAllowedElements,
+>(
   // eslint-disable-next-line no-use-before-define
   props: ContainerProps<T>,
 ) => ReturnType<typeof ContainerInner>;
