@@ -6,6 +6,7 @@ import {
   ExoticComponent,
   ComponentPropsWithRef,
   FC,
+  ForwardedRef,
 } from 'react';
 
 // Utility type to merge two types
@@ -49,4 +50,6 @@ export type PolymorphicFunctionalProps<
 > = T extends FC<infer U> ? PolymorphicProps<Merge<P, PropsWithoutAs<PropsWithoutRef<U>>>, T, S> : never;
 
 // Type for the forwarded ref of a component
-export type PolymorphicForwardedRef<C extends ElementType> = ComponentPropsWithRef<C>['ref'];
+export type PolymorphicForwardedRef<C extends ElementType> = C extends keyof JSX.IntrinsicElements
+  ? ForwardedRef<HTMLMapElement[C]>
+  : ComponentPropsWithRef<C>['ref'];

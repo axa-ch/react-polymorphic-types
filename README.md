@@ -83,7 +83,7 @@ import { PolymorphicProps } from '@axa-ch/react-polymorphic-types';
 // Default HTML element if the "as" prop is not provided
 export const HeadingDefaultElement: ElementType = 'h1';
 // List of allowed HTML elements that can be passed via the "as" prop
-export type HeadingAllowedElements = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+export type HeadingAllowedElements = typeof HeadingDefaultElement | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 export type HeadingSizes = 1 | 2 | 3 | 4 | 5 | 6;
 
 // Component-specific props
@@ -163,7 +163,7 @@ import { PolymorphicProps, PolymorphicForwardedRef } from '@axa-ch/react-polymor
 // Default HTML element if the "as" prop is not provided
 export const HeadingDefaultElement: ElementType = 'h1';
 // List of allowed HTML elements that can be passed via the "as" prop
-export type HeadingAllowedElements = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+export type HeadingAllowedElements = typeof HeadingDefaultElement | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 export type HeadingSizes = 1 | 2 | 3 | 4 | 5 | 6;
 
 // Component-specific props
@@ -199,7 +199,7 @@ const HeadingInner = <T extends HeadingAllowedElements>(
 
 // Forward refs with generics is tricky
 // see also https://fettblog.eu/typescript-react-generic-forward-refs/
-export const Heading = forwardRef(HeadingInner) as <T extends HeadingAllowedElements>(
+export const Heading = forwardRef<HeadingAllowedElements>(HeadingInner) as <T extends HeadingAllowedElements>(
   // eslint-disable-next-line no-use-before-define
   props: HeadingProps<T> & { ref?: PolymorphicForwardedRef<T> },
 ) => ReturnType<typeof HeadingInner>;
@@ -235,7 +235,7 @@ import { PolymorphicProps, PolymorphicForwardedRef } from '@axa-ch/react-polymor
 // Default HTML element if the "as" prop is not provided
 export const HeadingDefaultElement: ElementType = 'h1';
 // List of allowed HTML elements that can be passed via the "as" prop
-export type HeadingAllowedElements = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+export type HeadingAllowedElements = typeof HeadingDefaultElement | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 export type HeadingSizes = 1 | 2 | 3 | 4 | 5 | 6;
 
 // Component-specific props
@@ -301,7 +301,7 @@ import { PolymorphicExoticProps, PolymorphicProps } from '@axa-ch/react-polymorp
 // Default HTML element if the "as" prop is not provided
 export const ContainerDefaultElement: ElementType = 'div';
 // List of allowed HTML elements that can be passed via the "as" prop
-export type ContainerAllowedDOMElements = 'div' | 'article' | 'section';
+export type ContainerAllowedDOMElements = typeof ContainerDefaultElement | 'article' | 'section';
 export type ContainerAllowedElements = ContainerAllowedDOMElements | ExoticComponent;
 
 // Component-specific props
@@ -455,8 +455,8 @@ export type ContainerOwnProps<T extends ContainerAllowedDOMElements> = Component
 export type ContainerProps<T extends ContainerAllowedElements> = T extends ContainerAllowedDOMElements
   ? PolymorphicProps<ContainerOwnProps<T>, T, ContainerAllowedDOMElements>
   : T extends FC<any>
-  ? PolymorphicFunctionalProps<ContainerOwnProps<ContainerAllowedDOMElements>, T, ContainerAllowedDOMElements>
-  : PolymorphicExoticProps<ContainerOwnProps<ContainerAllowedDOMElements>, T, ContainerAllowedDOMElements>;
+    ? PolymorphicFunctionalProps<ContainerOwnProps<ContainerAllowedDOMElements>, T, ContainerAllowedDOMElements>
+    : PolymorphicExoticProps<ContainerOwnProps<ContainerAllowedDOMElements>, T, ContainerAllowedDOMElements>;
 
 export const Container = <T extends ContainerAllowedElements>({
   as,

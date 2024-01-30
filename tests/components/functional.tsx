@@ -17,8 +17,8 @@ export type ContainerOwnProps<T extends ContainerAllowedDOMElements> = Component
 export type ContainerProps<T extends ContainerAllowedElements> = T extends ContainerAllowedDOMElements
   ? PolymorphicProps<ContainerOwnProps<T>, T, ContainerAllowedDOMElements>
   : T extends FC<any>
-  ? PolymorphicFunctionalProps<ContainerOwnProps<ContainerAllowedDOMElements>, T, ContainerAllowedDOMElements>
-  : PolymorphicExoticProps<ContainerOwnProps<ContainerAllowedDOMElements>, T, ContainerAllowedDOMElements>;
+    ? PolymorphicFunctionalProps<ContainerOwnProps<ContainerAllowedDOMElements>, T, ContainerAllowedDOMElements>
+    : PolymorphicExoticProps<ContainerOwnProps<ContainerAllowedDOMElements>, T, ContainerAllowedDOMElements>;
 
 export const Container = <T extends ContainerAllowedElements>({
   as,
