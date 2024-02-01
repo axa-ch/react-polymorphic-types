@@ -21,20 +21,17 @@ export type HeadingProps<T extends HeadingAllowedElements = typeof HeadingDefaul
 >;
 
 export const Heading = <T extends HeadingAllowedElements>({
-  as,
+  as = HeadingDefaultElement,
   size,
   className,
   children,
   ...rest
-}: HeadingProps<T>) => {
-  const element: HeadingAllowedElements = as || HeadingDefaultElement;
-
-  return createElement(
-    element,
+}: HeadingProps<T>) =>
+  createElement(
+    as,
     {
       ...rest,
       className: `${className} size-${size || 1}`,
     },
     children,
   );
-};

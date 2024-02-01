@@ -4,7 +4,7 @@ import { PolymorphicProps, PolymorphicForwardedRef } from '../../index';
 // Default HTML element if the "as" prop is not provided
 export const HeadingDefaultElement: ElementType = 'h1';
 // List of allowed HTML Element that can be passed via "as" prop
-export type HeadingAllowedElements = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'div' | 'a' | 'article';
+export type HeadingAllowedElements = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 export type HeadingSizes = 1 | 2 | 3 | 4 | 5 | 6;
 
 // Component-specific props
@@ -21,13 +21,11 @@ export type HeadingProps<T extends HeadingAllowedElements> = PolymorphicProps<
 >;
 
 const HeadingInner = <T extends HeadingAllowedElements>(
-  { as, size, className, children, ...rest }: HeadingProps<T>,
+  { as = HeadingDefaultElement, size, className, children, ...rest }: HeadingProps<T>,
   ref: PolymorphicForwardedRef<T>,
-) => {
-  const element: HeadingAllowedElements = as || HeadingDefaultElement;
-
-  return createElement(
-    element,
+) =>
+  createElement(
+    as,
     {
       ...rest,
       ref,
@@ -35,7 +33,6 @@ const HeadingInner = <T extends HeadingAllowedElements>(
     },
     children,
   );
-};
 
 // Forward refs with generics is tricky
 // see also https://fettblog.eu/typescript-react-generic-forward-refs/

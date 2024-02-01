@@ -14,21 +14,18 @@ export type HeadingOwnProps<T extends HeadingAllowedElements> = ComponentPropsWi
 
 export const Heading = memo(
   <T extends HeadingAllowedElements>({
-    as,
+    as = HeadingDefaultElement,
     size,
     className,
     children,
     ...rest
-  }: PolymorphicProps<HeadingOwnProps<T>, T, HeadingAllowedElements>) => {
-    const element: HeadingAllowedElements = as || HeadingDefaultElement;
-
-    return createElement(
-      element,
+  }: PolymorphicProps<HeadingOwnProps<T>, T, HeadingAllowedElements>) =>
+    createElement(
+      as,
       {
         ...rest,
         className: `${className} size-${size || 1}`,
       },
       children,
-    );
-  },
+    ),
 );

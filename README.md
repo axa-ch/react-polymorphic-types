@@ -30,9 +30,8 @@ type HeadingProps<T extends ElementType = 'h1'> = PropsWithChildren<
 >;
 
 // Define the polymorphic heading component
-export function Heading<T extends ElementType = 'h1'>({ as = 'h1', children, ...rest }: HeadingProps<T>) {
-  return createElement(as, rest, children);
-}
+export const Heading = <T extends ElementType = 'h1'>({ as = 'h1', children, ...rest }: HeadingProps<T>) =>
+  createElement(as, rest, children);
 ```
 
 In the above example, the `Heading` component can render different heading levels (`h1`, `h2`, `h3`, etc.) based on the `as` prop. By default, it renders as an `h1` element.
@@ -100,23 +99,20 @@ export type HeadingProps<T extends HeadingAllowedElements = typeof HeadingDefaul
 >;
 
 export const Heading = <T extends HeadingAllowedElements>({
-  as,
+  as = HeadingDefaultElement,
   size,
   className,
   children,
   ...rest
-}: HeadingProps<T>) => {
-  const element: HeadingAllowedElements = as || HeadingDefaultElement;
-
-  return createElement(
-    element,
+}: HeadingProps<T>) =>
+  createElement(
+    as,
     {
       ...rest,
       className: `${className} size-${size || 1}`,
     },
     children,
   );
-};
 ```
 
 You can use the `Heading` component in your application as shown below:
@@ -180,13 +176,17 @@ export type HeadingProps<T extends HeadingAllowedElements> = PolymorphicProps<
 >;
 
 const HeadingInner = <T extends HeadingAllowedElements>(
-  { as, size, className, children, ...rest }: PolymorphicProps<HeadingOwnProps<T>, T, HeadingAllowedElements>,
+  {
+    as = HeadingDefaultElement,
+    size,
+    className,
+    children,
+    ...rest
+  }: PolymorphicProps<HeadingOwnProps<T>, T, HeadingAllowedElements>,
   // notice the use of the PolymorphicForwardedRef type here
   ref: PolymorphicForwardedRef<T>,
-) => {
-  const element: HeadingAllowedElements = as || HeadingDefaultElement;
-
-  return createElement(
+) =>
+  createElement(
     element,
     {
       ...rest,
@@ -195,7 +195,6 @@ const HeadingInner = <T extends HeadingAllowedElements>(
     },
     children,
   );
-};
 
 // Forward refs with generics is tricky
 // see also https://fettblog.eu/typescript-react-generic-forward-refs/
@@ -252,15 +251,13 @@ export type HeadingProps<T extends HeadingAllowedElements> = PolymorphicProps<
 >;
 
 const HeadingInner = <T extends HeadingAllowedElements>({
-  as,
+  as = HeadingDefaultElement,
   size,
   className,
   children,
   ...rest
-}: PolymorphicProps<HeadingOwnProps<T>, T, HeadingAllowedElements>) => {
-  const element: HeadingAllowedElements = as || HeadingDefaultElement;
-
-  return createElement(
+}: PolymorphicProps<HeadingOwnProps<T>, T, HeadingAllowedElements>) =>
+  createElement(
     element,
     {
       ...rest,
@@ -268,7 +265,6 @@ const HeadingInner = <T extends HeadingAllowedElements>({
     },
     children,
   );
-};
 
 // Memo with generics is tricky
 // see also https://fettblog.eu/typescript-react-generic-forward-refs/
@@ -314,14 +310,12 @@ export type ContainerProps<T extends ContainerAllowedElements> = T extends Conta
   : PolymorphicExoticProps<ContainerOwnProps<ContainerAllowedDOMElements>, T, ContainerAllowedDOMElements>;
 
 export const Container = <T extends ContainerAllowedElements>({
-  as,
+  as = ContainerDefaultElement,
   className,
   children,
   ...rest
-}: ContainerProps<T>) => {
-  const element: ContainerAllowedElements = as || ContainerDefaultElement;
-
-  return createElement(
+}: ContainerProps<T>) =>
+  createElement(
     element,
     {
       ...rest,
@@ -329,7 +323,6 @@ export const Container = <T extends ContainerAllowedElements>({
     },
     children,
   );
-};
 ```
 
 The above component works with straight HTML nodes or with external exotic components like, for example, the ones provided by [framer-motion](https://www.framer.com/motion/).
@@ -377,12 +370,10 @@ export type ContainerProps<T extends ContainerAllowedElements> = T extends Conta
 
 // Forwarded ref component
 const ContainerInner = <T extends ContainerAllowedElements>(
-  { as, className, children, ...rest }: ContainerProps<T>,
+  { as = ContainerDefaultElement, className, children, ...rest }: ContainerProps<T>,
   ref: PolymorphicForwardedRef<T>,
-) => {
-  const element: ContainerAllowedElements = as || ContainerDefaultElement;
-
-  return createElement(
+) =>
+  createElement(
     element,
     {
       ...rest,
@@ -391,7 +382,6 @@ const ContainerInner = <T extends ContainerAllowedElements>(
     },
     children,
   );
-};
 
 // Forward refs with generics is tricky
 // see also https://fettblog.eu/typescript-react-generic-forward-refs/
@@ -459,22 +449,19 @@ export type ContainerProps<T extends ContainerAllowedElements> = T extends Conta
     : PolymorphicExoticProps<ContainerOwnProps<ContainerAllowedDOMElements>, T, ContainerAllowedDOMElements>;
 
 export const Container = <T extends ContainerAllowedElements>({
-  as,
+  as = ContainerDefaultElement,
   className,
   children,
   ...rest
-}: ContainerProps<T>) => {
-  const element: ContainerAllowedElements = as || ContainerDefaultElement;
-
-  return createElement(
-    element,
+}: ContainerProps<T>) =>
+  createElement(
+    as,
     {
       ...rest,
       className,
     },
     children,
   );
-};
 ```
 
 Let's see how we can use the above component with all its possible rendering options:

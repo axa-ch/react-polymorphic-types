@@ -18,13 +18,11 @@ export type ContainerProps<T extends ContainerAllowedElements> = T extends Conta
 
 // Forwarded ref component
 const ContainerInner = <T extends ContainerAllowedElements>(
-  { as, className, children, ...rest }: ContainerProps<T>,
+  { as = ContainerDefaultElement, className, children, ...rest }: ContainerProps<T>,
   ref: PolymorphicForwardedRef<T>,
-) => {
-  const element: ContainerAllowedElements = as || ContainerDefaultElement;
-
-  return createElement(
-    element,
+) =>
+  createElement(
+    as,
     {
       ...rest,
       ref,
@@ -32,7 +30,6 @@ const ContainerInner = <T extends ContainerAllowedElements>(
     },
     children,
   );
-};
 
 // Forward refs with generics is tricky
 // see also https://fettblog.eu/typescript-react-generic-forward-refs/

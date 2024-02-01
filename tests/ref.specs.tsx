@@ -7,18 +7,7 @@ export default () => {
   return (
     <Heading
       ref={ref}
-      as='article'
-    />
-  );
-};
-
-export const LinkHeading = () => {
-  const ref = useRef<HTMLAnchorElement | null>(null);
-
-  return (
-    <Heading
-      ref={ref}
-      as='a'
+      as='h1'
     />
   );
 };

@@ -17,19 +17,16 @@ export type ContainerProps<T extends ContainerAllowedElements> = T extends Conta
   : PolymorphicExoticProps<ContainerOwnProps<ContainerAllowedDOMElements>, T, ContainerAllowedDOMElements>;
 
 export const Container = <T extends ContainerAllowedElements>({
-  as,
+  as = ContainerDefaultElement,
   className,
   children,
   ...rest
-}: ContainerProps<T>) => {
-  const element: ContainerAllowedElements = as || ContainerDefaultElement;
-
-  return createElement(
-    element,
+}: ContainerProps<T>) =>
+  createElement(
+    as,
     {
       ...rest,
       className,
     },
     children,
   );
-};
