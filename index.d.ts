@@ -6,8 +6,6 @@ import {
   ExoticComponent,
   ComponentPropsWithRef,
   FC,
-  ForwardedRef,
-  HTMLAttributes,
 } from 'react';
 
 // Utility type to merge two types
