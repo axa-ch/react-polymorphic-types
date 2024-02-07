@@ -30,7 +30,7 @@ const ComplexInner = <T extends ComplexAllowedElements>(
 
 // Forward refs with generics is tricky
 // see also https://fettblog.eu/typescript-react-generic-forward-refs/
-export const Complex = forwardRef(ComplexInner) as <T extends ComplexAllowedElements>(
+export const Complex = forwardRef(ComplexInner) as unknown as <T extends ComplexAllowedElements>(
   // eslint-disable-next-line no-use-before-define
   props: ComplexProps<T> & { ref?: PolymorphicForwardedRef<T> },
 ) => ReturnType<typeof ComplexInner>;

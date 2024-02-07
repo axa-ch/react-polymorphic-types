@@ -198,7 +198,9 @@ const HeadingInner = <T extends HeadingAllowedElements>(
 
 // Forward refs with generics is tricky
 // see also https://fettblog.eu/typescript-react-generic-forward-refs/
-export const Heading = forwardRef<HeadingAllowedElements>(HeadingInner) as <T extends HeadingAllowedElements>(
+export const Heading = forwardRef<HeadingAllowedElements>(HeadingInner) as unknown as <
+  T extends HeadingAllowedElements,
+>(
   // eslint-disable-next-line no-use-before-define
   props: HeadingProps<T> & { ref?: PolymorphicForwardedRef<T> },
 ) => ReturnType<typeof HeadingInner>;
