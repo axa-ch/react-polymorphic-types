@@ -6,6 +6,7 @@ import {
   ExoticComponent,
   ComponentPropsWithRef,
   FC,
+  Attributes,
 } from 'react';
 
 // Utility type to merge two types
@@ -33,7 +34,8 @@ export type PolymorphicProps<
   T extends keyof JSX.IntrinsicElements ? PropsWithoutRef<JSX.IntrinsicElements[T]> : ComponentPropsWithoutRef<T>,
   // cover cases where the allowed ElementType and allowed DOM nodes overlap and are the same
   T extends S ? PropsWithAs<P, T, T> : PropsWithAs<P, T, S>
->;
+> &
+  Attributes;
 
 // Polymorphic props type for exotic components
 export type PolymorphicExoticProps<
