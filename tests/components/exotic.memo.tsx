@@ -1,5 +1,5 @@
-import { ComponentPropsWithoutRef, createElement, ElementType, ExoticComponent, memo } from 'react';
-import { PolymorphicExoticProps, PolymorphicProps } from '../../index';
+import { type ComponentPropsWithoutRef, type ElementType, type ExoticComponent, createElement, memo } from 'react';
+import type { PolymorphicExoticProps, PolymorphicProps } from '../../index';
 
 // Default HTML element if the "as" prop is not provided
 export const ContainerDefaultElement: ElementType = 'div';
@@ -36,6 +36,5 @@ export const ContainerInner = <T extends ContainerAllowedElements>({
 export const Container = memo<ContainerOwnProps<ContainerAllowedDOMElements>>(ContainerInner) as <
   T extends ContainerAllowedElements,
 >(
-  // eslint-disable-next-line no-use-before-define
   props: ContainerProps<T>,
 ) => ReturnType<typeof ContainerInner>;

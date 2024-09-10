@@ -1,5 +1,5 @@
-import { ComponentPropsWithoutRef, FC } from 'react';
 import { motion } from 'framer-motion';
+import type { ComponentPropsWithoutRef, FC } from 'react';
 import { Container } from './components/functional';
 
 type FooProps = ComponentPropsWithoutRef<'div'> & { size: 'small' | 'large'; name: string };

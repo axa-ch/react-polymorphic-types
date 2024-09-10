@@ -201,7 +201,6 @@ const HeadingInner = <T extends HeadingAllowedElements>(
 export const Heading = forwardRef<HeadingAllowedElements>(HeadingInner) as unknown as <
   T extends HeadingAllowedElements,
 >(
-  // eslint-disable-next-line no-use-before-define
   props: HeadingProps<T> & { ref?: PolymorphicForwardedRef<T> },
 ) => ReturnType<typeof HeadingInner>;
 ```
@@ -388,7 +387,6 @@ const ContainerInner = <T extends ContainerAllowedElements>(
 // Forward refs with generics is tricky
 // see also https://fettblog.eu/typescript-react-generic-forward-refs/
 export const Container = forwardRef<ContainerAllowedElements>(ContainerInner) as <T extends ContainerAllowedElements>(
-  // eslint-disable-next-line no-use-before-define
   props: ContainerProps<T> & { ref?: PolymorphicForwardedRef<T> },
 ) => ReturnType<typeof ContainerInner>;
 ```
@@ -429,7 +427,6 @@ This example combines multiple rendering strategies for your component to allow 
 ```tsx
 // We need to infer the functional component properties so 'any' is used in this case
 // You can also add strict types for your functional components, but it will reduce flexibility
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ComponentPropsWithoutRef, createElement, ElementType, ExoticComponent, FC } from 'react';
 import { PolymorphicFunctionalProps, PolymorphicExoticProps, PolymorphicProps } from '@axa-ch/react-polymorphic-types';
 

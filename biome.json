@@ -1,0 +1,4 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+  "extends": ["./node_modules/@axa-ch/easy-config/biome/base.json"]
+}

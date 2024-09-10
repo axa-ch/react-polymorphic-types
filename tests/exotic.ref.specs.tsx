@@ -1,5 +1,5 @@
-import { useRef } from 'react';
 import { motion } from 'framer-motion';
+import { useRef } from 'react';
 import { Container } from './components/exotic.ref';
 
 export default () => {

@@ -1,12 +1,12 @@
-import {
+import type {
+  Attributes,
+  ComponentPropsWithRef,
   ComponentPropsWithoutRef,
   ElementType,
-  PropsWithoutRef,
-  JSX,
   ExoticComponent,
-  ComponentPropsWithRef,
   FC,
-  Attributes,
+  JSX,
+  PropsWithoutRef,
 } from 'react';
 
 // Utility type to merge two types

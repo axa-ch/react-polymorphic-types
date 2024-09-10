@@ -1,5 +1,5 @@
-import { ComponentPropsWithoutRef, createElement, ElementType, memo } from 'react';
-import { PolymorphicProps } from '../../index';
+import { type ComponentPropsWithoutRef, type ElementType, createElement, memo } from 'react';
+import type { PolymorphicProps } from '../../index';
 
 // Default HTML element if the "as" prop is not provided
 export const HeadingDefaultElement: ElementType = 'h1';

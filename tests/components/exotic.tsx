@@ -1,5 +1,5 @@
-import { ComponentPropsWithoutRef, createElement, ElementType, ExoticComponent } from 'react';
-import { PolymorphicExoticProps, PolymorphicProps } from '../../index';
+import { type ComponentPropsWithoutRef, type ElementType, type ExoticComponent, createElement } from 'react';
+import type { PolymorphicExoticProps, PolymorphicProps } from '../../index';
 
 // Default HTML element if the "as" prop is not provided
 export const ContainerDefaultElement: ElementType = 'div';

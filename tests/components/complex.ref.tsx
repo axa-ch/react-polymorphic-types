@@ -1,5 +1,5 @@
-import { ComponentPropsWithoutRef, createElement, ElementType, forwardRef } from 'react';
-import { PolymorphicProps, PolymorphicForwardedRef } from '../../index';
+import { type ComponentPropsWithoutRef, type ElementType, createElement, forwardRef } from 'react';
+import type { PolymorphicForwardedRef, PolymorphicProps } from '../../index';
 
 // Default HTML element if the "as" prop is not provided
 export const ComplexDefaultElement: ElementType = 'div';
@@ -31,6 +31,5 @@ const ComplexInner = <T extends ComplexAllowedElements>(
 // Forward refs with generics is tricky
 // see also https://fettblog.eu/typescript-react-generic-forward-refs/
 export const Complex = forwardRef(ComplexInner) as unknown as <T extends ComplexAllowedElements>(
-  // eslint-disable-next-line no-use-before-define
   props: ComplexProps<T> & { ref?: PolymorphicForwardedRef<T> },
 ) => ReturnType<typeof ComplexInner>;

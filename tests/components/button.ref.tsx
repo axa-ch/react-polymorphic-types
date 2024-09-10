@@ -1,5 +1,5 @@
-import { ComponentPropsWithoutRef, createElement, forwardRef, FC, ExoticComponent } from 'react';
-import {
+import { type ComponentPropsWithoutRef, type ExoticComponent, type FC, createElement, forwardRef } from 'react';
+import type {
   PolymorphicExoticProps,
   PolymorphicForwardedRef,
   PolymorphicFunctionalProps,
@@ -11,7 +11,7 @@ export const ButtonDefaultElement = 'button';
 // List of allowed HTML Element that can be passed via "as" prop
 export type ButtonAllowedElements = typeof ButtonDefaultElement | 'a' | 'div' | 'span';
 // List of allowed React nodes that can be passed along with the "as" prop
-/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+// biome-ignore lint/suspicious/noExplicitAny: allow the use of any react FC component
 export type ButtonAllowedComponentTypes = ButtonAllowedElements | ExoticComponent | FC<any>;
 
 // Component-specific props
@@ -24,7 +24,7 @@ export type ButtonOwnProps<T extends ButtonAllowedElements> = ComponentPropsWith
 // Own props take precedence over the inherited ones
 export type ButtonProps<T extends ButtonAllowedComponentTypes> = T extends ButtonAllowedElements
   ? PolymorphicProps<ButtonOwnProps<T>, T, ButtonAllowedElements>
-  : /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  : // biome-ignore lint/suspicious/noExplicitAny: allow the use of any react FC component
     T extends FC<any>
     ? PolymorphicFunctionalProps<ButtonOwnProps<ButtonAllowedElements>, T, ButtonAllowedElements>
     : PolymorphicExoticProps<ButtonOwnProps<ButtonAllowedElements>, T, ButtonAllowedElements>;
@@ -48,6 +48,5 @@ const ButtonInner = <T extends ButtonAllowedComponentTypes>(
 export const Button = forwardRef<ButtonAllowedComponentTypes>(ButtonInner) as <
   T extends ButtonAllowedComponentTypes = typeof ButtonDefaultElement,
 >(
-  // eslint-disable-next-line no-use-before-define
   props: ButtonProps<T> & { ref?: PolymorphicForwardedRef<T> },
 ) => ReturnType<typeof ButtonInner>;
