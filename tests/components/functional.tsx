@@ -12,7 +12,9 @@ export type ContainerAllowedElements =
   | FC<any>;
 
 // Component-specific props
-export type ContainerOwnProps<T extends ContainerAllowedDOMElements> = ComponentPropsWithoutRef<T>;
+export type ContainerOwnProps<T extends ContainerAllowedElements> = ComponentPropsWithoutRef<T> & {
+  size?: 'small' | 'large';
+};
 
 // Extend own props with others inherited from the underlying element type
 // Own props take precedence over the inherited ones
@@ -23,9 +25,13 @@ export type ContainerProps<T extends ContainerAllowedElements> = T extends Conta
     ? PolymorphicFunctionalProps<ContainerOwnProps<ContainerAllowedDOMElements>, T, ContainerAllowedDOMElements>
     : PolymorphicExoticProps<ContainerOwnProps<ContainerAllowedDOMElements>, T, ContainerAllowedDOMElements>;
 
+// debugger method to guarantee that the component props are inferred correctly
+const createClassName = (className: string, size: string) => `${className}-${size}`;
+
 export const Container = <T extends ContainerAllowedElements>({
   as = ContainerDefaultElement,
   className,
+  size,
   children,
   ...rest
 }: ContainerProps<T>) =>
@@ -33,7 +39,16 @@ export const Container = <T extends ContainerAllowedElements>({
     as,
     {
       ...rest,
-      className,
+      className: createClassName(
+        // @ts-expect-error
+        // detect the type of the className prop and recognize that it might be undefined
+        // notice that <=1.2.5 this would have not been an error
+        className satisfies string,
+        // @ts-expect-error
+        // detect the type of the className prop and recognize that it might be undefined
+        // notice that <=1.2.5 this would have not been an error
+        size satisfies string,
+      ),
     },
     children,
   );

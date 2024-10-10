@@ -10,7 +10,9 @@ import type {
 } from 'react';
 
 // Utility type to merge two types
-type Merge<T, U> = Omit<T, keyof U> & U;
+type Merge<T, U> = {
+  [K in keyof T as K extends keyof U ? never : K]: T[K];
+} & U;
 
 // Props type with an "as" prop that allows specifying the element type
 export type PropsWithAs<
@@ -42,14 +44,14 @@ export type PolymorphicExoticProps<
   P,
   T extends ElementType,
   S extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements,
-> = T extends ExoticComponent<infer U> ? PolymorphicProps<Merge<P, PropsWithoutAs<PropsWithoutRef<U>>>, T, S> : never;
+> = T extends ExoticComponent<infer U> ? PolymorphicProps<Merge<PropsWithoutAs<PropsWithoutRef<U>>, P>, T, S> : never;
 
 // Polymorphic props type for functional components
 export type PolymorphicFunctionalProps<
   P,
   T extends ElementType,
   S extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements,
-> = T extends FC<infer U> ? PolymorphicProps<Merge<P, PropsWithoutAs<PropsWithoutRef<U>>>, T, S> : never;
+> = T extends FC<infer U> ? PolymorphicProps<Merge<PropsWithoutAs<PropsWithoutRef<U>>, P>, T, S> : never;
 
 // Type for the forwarded ref of a component
 export type PolymorphicForwardedRef<C extends ElementType> = ComponentPropsWithRef<C>['ref'];
