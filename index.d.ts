@@ -15,12 +15,8 @@ type Merge<T, U> = {
 } & U;
 
 // Props type with an "as" prop that allows specifying the element type
-export type PropsWithAs<
-  P,
-  T extends ElementType,
-  S extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements,
-> = P & {
-  as?: T extends keyof JSX.IntrinsicElements ? (T extends S ? T : never) : T;
+export type PropsWithAs<P, T extends ElementType> = P & {
+  as?: T;
 };
 
 // Helper to get the polymorphic component props without the as attribute
@@ -35,7 +31,7 @@ export type PolymorphicProps<
 > = Merge<
   T extends keyof JSX.IntrinsicElements ? PropsWithoutRef<JSX.IntrinsicElements[T]> : ComponentPropsWithoutRef<T>,
   // cover cases where the allowed ElementType and allowed DOM nodes overlap and are the same
-  T extends S ? PropsWithAs<P, S> : PropsWithAs<P, T, S>
+  T extends S ? PropsWithAs<P, S> : PropsWithAs<P, T>
 > &
   Attributes;
 
