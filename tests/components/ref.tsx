@@ -4,7 +4,16 @@ import type { PolymorphicForwardedRef, PolymorphicProps } from '../../index';
 // Default HTML element if the "as" prop is not provided
 export const HeadingDefaultElement: ElementType = 'h1';
 // List of allowed HTML Element that can be passed via "as" prop
-export type HeadingAllowedElements = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+export type HeadingAllowedElements =
+  | typeof HeadingDefaultElement
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'p'
+  | 'span'
+  | 'div';
 export type HeadingSizes = 1 | 2 | 3 | 4 | 5 | 6;
 
 // Component-specific props

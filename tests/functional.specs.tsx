@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import type { ComponentPropsWithoutRef, FC } from 'react';
 import { Container } from './components/functional';
+import { Heading } from './components/ref';
 
 type FooProps = ComponentPropsWithoutRef<'div'> & { size: 'small' | 'large'; name: string };
 
@@ -36,6 +37,11 @@ export default () => {
         size={'small'}
         name={'foo'}
         as={Foo}
+      />
+      {/* Handle deep and possibly infinite instantiations */}
+      <Container
+        as={Heading}
+        size={'small'}
       />
       <Container
         as={motion.div}

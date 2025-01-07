@@ -35,7 +35,7 @@ export type PolymorphicProps<
 > = Merge<
   T extends keyof JSX.IntrinsicElements ? PropsWithoutRef<JSX.IntrinsicElements[T]> : ComponentPropsWithoutRef<T>,
   // cover cases where the allowed ElementType and allowed DOM nodes overlap and are the same
-  T extends S ? PropsWithAs<P, T, T> : PropsWithAs<P, T, S>
+  T extends S ? PropsWithAs<P, S> : PropsWithAs<P, T, S>
 > &
   Attributes;
 
