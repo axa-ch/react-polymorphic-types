@@ -1,6 +1,6 @@
 {
   "name": "@axa-ch/react-polymorphic-types",
-  "version": "1.2.6",
+  "version": "1.3.0",
   "description": "About Zero-runtime polymorphic component definitions for React",
   "main": "index.js",
   "types": "index.d.ts",
