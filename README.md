@@ -222,7 +222,7 @@ const App = () => {
 ```
 
 </details>
-
+<details>
  <summary>React 19 Example with Ref</summary>
 
 This example is similar to the previous one, but with React 19 the [refs forwarding got much easier](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop)
