@@ -223,6 +223,71 @@ const App = () => {
 
 </details>
 
+ <summary>React 19 Example with Ref</summary>
+
+This example is similar to the previous one, but with React 19 the [refs forwarding got much easier](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop)
+
+```tsx
+import { ComponentPropsWithoutRef, createElement, ElementType, forwardRef } from 'react';
+import { PolymorphicProps, PolymorphicForwardedRef } from '@axa-ch/react-polymorphic-types';
+
+// Default HTML element if the "as" prop is not provided
+export const HeadingDefaultElement: ElementType = 'h1';
+// List of allowed HTML elements that can be passed via the "as" prop
+export type HeadingAllowedElements = typeof HeadingDefaultElement | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+export type HeadingSizes = 1 | 2 | 3 | 4 | 5 | 6;
+
+// Component-specific props
+export type HeadingOwnProps<T extends HeadingAllowedElements> = ComponentPropsWithoutRef<T> & {
+  size?: HeadingSizes;
+  ref?: PolymorphicForwardedRef<T>;
+};
+
+// Extend own props with others inherited from the underlying element type
+// Own props take precedence over the inherited ones
+export type HeadingProps<T extends HeadingAllowedElements> = PolymorphicProps<
+  HeadingOwnProps<T>,
+  T,
+  HeadingAllowedElements
+>;
+
+const Heading = <T extends HeadingAllowedElements>({
+  as = HeadingDefaultElement,
+  size,
+  className,
+  ref,
+  children,
+  ...rest
+}: PolymorphicProps<HeadingOwnProps<T>, T, HeadingAllowedElements>) =>
+  createElement(
+    element,
+    {
+      ...rest,
+      ref,
+      className: `${className} size-${size || 1}`,
+    },
+    children,
+  );
+```
+
+Using the `@axa-ch/react-polymorphic-types` types will allow you to automatically infer the proper ref DOM node.
+
+```tsx
+const App = () => {
+  // The use of HTMLHeadingElement type is safe
+  const ref = useRef<HTMLHeadingElement | null>(null);
+
+  return (
+    <Heading
+      ref={ref}
+      as='h2'
+    />
+  );
+};
+```
+
+</details>
+
 <details>
 <summary>Basic Example with Memo</summary>
 
