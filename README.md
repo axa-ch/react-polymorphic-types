@@ -176,13 +176,7 @@ export type HeadingProps<T extends HeadingAllowedElements> = PolymorphicProps<
 >;
 
 const HeadingInner = <T extends HeadingAllowedElements>(
-  {
-    as = HeadingDefaultElement,
-    size,
-    className,
-    children,
-    ...rest
-  }: PolymorphicProps<HeadingOwnProps<T>, T, HeadingAllowedElements>,
+  { as = HeadingDefaultElement, size, className, children, ...rest }: HeaadingProps<T>,
   // notice the use of the PolymorphicForwardedRef type here
   ref: PolymorphicForwardedRef<T>,
 ) =>
@@ -258,7 +252,7 @@ const Heading = <T extends HeadingAllowedElements>({
   ref,
   children,
   ...rest
-}: PolymorphicProps<HeadingOwnProps<T>, T, HeadingAllowedElements>) =>
+}: HeadingProps<T>) =>
   createElement(
     element,
     {
@@ -322,7 +316,7 @@ const HeadingInner = <T extends HeadingAllowedElements>({
   className,
   children,
   ...rest
-}: PolymorphicProps<HeadingOwnProps<T>, T, HeadingAllowedElements>) =>
+}: HeadingProps<T>) =>
   createElement(
     element,
     {
