@@ -181,7 +181,7 @@ const HeadingInner = <T extends HeadingAllowedElements>(
   ref: PolymorphicForwardedRef<T>,
 ) =>
   createElement(
-    element,
+    as,
     {
       ...rest,
       ref,
@@ -192,9 +192,7 @@ const HeadingInner = <T extends HeadingAllowedElements>(
 
 // Forward refs with generics is tricky
 // see also https://fettblog.eu/typescript-react-generic-forward-refs/
-export const Heading = forwardRef<HeadingAllowedElements>(HeadingInner) as unknown as <
-  T extends HeadingAllowedElements,
->(
+export const Heading = forwardRef(HeadingInner) as unknown as <T extends HeadingAllowedElements>(
   props: HeadingProps<T> & { ref?: PolymorphicForwardedRef<T> },
 ) => ReturnType<typeof HeadingInner>;
 ```
@@ -254,7 +252,7 @@ const Heading = <T extends HeadingAllowedElements>({
   ...rest
 }: HeadingProps<T>) =>
   createElement(
-    element,
+    as,
     {
       ...rest,
       ref,
@@ -318,7 +316,7 @@ const HeadingInner = <T extends HeadingAllowedElements>({
   ...rest
 }: HeadingProps<T>) =>
   createElement(
-    element,
+    as,
     {
       ...rest,
       className: `${className} size-${size || 1}`,
@@ -376,7 +374,7 @@ export const Container = <T extends ContainerAllowedElements>({
   ...rest
 }: ContainerProps<T>) =>
   createElement(
-    element,
+    as,
     {
       ...rest,
       className,
@@ -434,7 +432,7 @@ const ContainerInner = <T extends ContainerAllowedElements>(
   ref: PolymorphicForwardedRef<T>,
 ) =>
   createElement(
-    element,
+    as,
     {
       ...rest,
       ref,
