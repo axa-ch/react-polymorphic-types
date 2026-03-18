@@ -1,8 +1,8 @@
 import {
   type ComponentPropsWithoutRef,
+  createElement,
   type ElementType,
   type ExoticComponent,
-  createElement,
   forwardRef,
 } from 'react';
 import type { PolymorphicExoticProps, PolymorphicForwardedRef, PolymorphicProps } from '../../index';

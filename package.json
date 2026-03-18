@@ -41,13 +41,13 @@
   },
   "homepage": "https://github.com/axa-ch/react-polymorphic-types#readme",
   "devDependencies": {
-    "@axa-ch/easy-config": "3.0.1",
-    "@biomejs/biome": "1.9.4",
-    "framer-motion": "^12.23.12",
-    "prettier": "3.6.2",
-    "typescript": "^5.9.2",
-    "@types/react": "^19.1.10",
-    "react": "^19.1.1"
+    "@axa-ch/easy-config": "4.0.1",
+    "@biomejs/biome": "2.4.7",
+    "framer-motion": "^12.38.0",
+    "prettier": "3.8.1",
+    "typescript": "^5.9.3",
+    "@types/react": "^19.2.14",
+    "react": "^19.2.4"
   },
   "peerDependencies": {
     "@types/react": "^18.0.0 || ^19.0.0",

@@ -1,5 +1,5 @@
 // We need to infer the functional component properties so any in this case is needed
-import { type ComponentPropsWithoutRef, type ElementType, type ExoticComponent, type FC, createElement } from 'react';
+import { type ComponentPropsWithoutRef, createElement, type ElementType, type ExoticComponent, type FC } from 'react';
 import type { PolymorphicExoticProps, PolymorphicFunctionalProps, PolymorphicProps } from '../../index';
 
 // Default HTML element if the "as" prop is not provided

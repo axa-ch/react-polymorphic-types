@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef, type ElementType, createElement, forwardRef } from 'react';
+import { type ComponentPropsWithoutRef, createElement, type ElementType, forwardRef } from 'react';
 import type { PolymorphicForwardedRef, PolymorphicProps } from '../../index';
 
 // Default HTML element if the "as" prop is not provided

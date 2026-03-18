@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef, type ElementType, createElement } from 'react';
+import { type ComponentPropsWithoutRef, createElement, type ElementType } from 'react';
 import type { PolymorphicProps } from '../../index';
 
 // Default HTML element if the "as" prop is not provided

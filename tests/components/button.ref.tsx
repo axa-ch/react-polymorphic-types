@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef, type ExoticComponent, type FC, createElement, forwardRef } from 'react';
+import { type ComponentPropsWithoutRef, createElement, type ExoticComponent, type FC, forwardRef } from 'react';
 import type {
   PolymorphicExoticProps,
   PolymorphicForwardedRef,
